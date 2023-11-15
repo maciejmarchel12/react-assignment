@@ -27,7 +27,7 @@ const SiteHeader = ({ history }) => {
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Latest", path: "/movies/trending" },
+    { label: "Trending", path: "/movies/trending" },
     { label: "Now Playing", path: "/movies/nowPlaying"},
     { label: "Top Rated", path: "/movies/topRated"},
     { label: "Recommended", path: "/movies/recommended"},
@@ -43,7 +43,7 @@ const SiteHeader = ({ history }) => {
 
   return (
     <>
-      <AppBar position="fixed" color="secondary">
+      <AppBar position="fixed" color="secondary" sx={{backgroundColor: "lightslategray"}}>
         <Toolbar>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
             TMDB Client
