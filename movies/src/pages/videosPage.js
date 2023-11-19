@@ -1,17 +1,17 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery } from "react-query";
-import { getRecommendations } from "../api/tmdb-api";
+import { getVideos } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import PageTemplate from "../components/templateMovieListPage";
 
-const Recommended = (props) => {
+const Videos = (props) => {
   const { id } = useParams();
 
   const { data, error, isLoading, isError }  = useQuery(
     ["movie",{id: id}, "recommendations"],
-    getRecommendations
+    getVideos
   );
 
   if (isLoading) {
@@ -38,4 +38,4 @@ const Recommended = (props) => {
 );
 };
 
-export default Recommended;
+export default Videos;
