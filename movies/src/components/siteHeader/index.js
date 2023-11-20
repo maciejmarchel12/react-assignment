@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { logout } from "../../firebase";
+import "../../css/dashboard.css"
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -32,6 +34,7 @@ const SiteHeader = ({ history }) => {
     { label: "Top Rated", path: "/movies/topRated"},
     { label: "Recommended", path: "/movies/recommended"},
     { label: "Videos", path: "/movies/videos"},
+    { label: "Dashboard", path: "../firebase/dashboard.js"},
   ];
 
   const handleMenuSelect = (pageURL) => {

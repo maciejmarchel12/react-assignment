@@ -16,6 +16,11 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
+//Firebase Auth Imports
+import Login from "./components/firebase/login";
+import Register from "./components/firebase/register";
+import Reset from "./components/firebase/reset";
+import Dashboard from "./components/firebase/dashboard";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,12 +44,16 @@ const App = () => {
         <Route path="/movies/upcoming" element={ <Upcoming /> } />
         <Route path="/movies/nowPlaying" element={ <NowPlaying /> } />
         <Route path="/movies/topRated" element={ <TopRated /> } />
-        <Route path="/movies/:id/recommendations" element={ <Recommendations /> } />
+        <Route path="/movies/:id/recommended" element={ <Recommendations /> } />
         <Route path="/movies/:id/videos" element={ <Videos /> } />
         <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
         <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
         <Route path="/movies/:id" element={<MoviePage />} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/movies/homePage" element={<HomePage />} />
+        <Route exact path ="/" element={<Login/>} />
+        <Route exact path ="/register" element={<Register/>} />
+        <Route exact path ="/reset" element={<Reset/>} />
+        <Route exact path ="/dashboard" element={<Dashboard/>} />
         <Route path="*" element={ <Navigate to="/" /> } />
         </Routes>
         </MoviesContextProvider>
