@@ -10,10 +10,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
-import { getGenres } from "../../api/tmdb-api";
+import { getGenres, getMovies} from "../../api/tmdb-api";
 import { Button } from "@mui/material";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
+import MovieDetails from "../movieDetails";
 
 
 const formControl = 
@@ -38,7 +39,6 @@ export default function FilterMoviesCard(props) {
     if (genres[0].name !== "All"){
       genres.unshift({ id: "0", name: "All" });
     }
-  
     const handleChange = (e, type, value) => {
       e.preventDefault();
       props.onUserInput(type, value); // NEW
