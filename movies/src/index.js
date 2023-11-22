@@ -7,7 +7,7 @@ import Trending from "./pages/trending";
 import NowPlaying from "./pages/nowPlaying";
 import TopRated from "./pages/topRated";
 import Recommendations from "./pages/recommended";
-import Videos from "./pages/videosPage";
+import Similar from "./pages/similarPage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
@@ -45,7 +45,7 @@ const App = () => {
         <Route path="/movies/nowPlaying" element={ <NowPlaying /> } />
         <Route path="/movies/topRated" element={ <TopRated /> } />
         <Route path="/movies/:id/recommended" element={ <Recommendations /> } />
-        <Route path="/movies/:id/videos" element={ <Videos /> } />
+        <Route path="/movies/:id/similar" element={ <Similar /> } />
         <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
         <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
         <Route path="/movies/:id" element={<MoviePage />} />

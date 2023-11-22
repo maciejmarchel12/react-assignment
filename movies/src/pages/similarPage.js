@@ -1,17 +1,17 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery } from "react-query";
-import { getVideos } from "../api/tmdb-api";
+import { getSimilar } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import PageTemplate from "../components/templateMovieListPage";
 
-const Videos = (props) => {
+const Similar = (props) => {
   const { id } = useParams();
 
   const { data, error, isLoading, isError }  = useQuery(
     ["movie",{id: id}, "recommendations"],
-    getVideos
+    getSimilar
   );
 
   if (isLoading) {
@@ -29,7 +29,7 @@ const Videos = (props) => {
 
   return (
     <PageTemplate
-      title="Recommended Movies"
+      title="Similar Movies"
       movies={movies}
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />
@@ -38,4 +38,4 @@ const Videos = (props) => {
 );
 };
 
-export default Videos;
+export default Similar;

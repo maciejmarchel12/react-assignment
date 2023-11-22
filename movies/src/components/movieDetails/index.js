@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -8,22 +9,20 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
-import MovieReviews from "../movieReviews"
-
-
+import MovieReviews from "../movieReviews";
 
 const root = {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: 1.5,
-    margin: 0,
+  display: "flex",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  listStyle: "none",
+  padding: 1.5,
+  margin: 0,
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ({ movie }) => {  // Don't miss this!
-    const [drawerOpen, setDrawerOpen] = useState(false);
+const MovieDetails = ({ movie }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
@@ -35,20 +34,17 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         {movie.overview}
       </Typography>
 
-      <Paper 
-        component="ul" 
-        sx={{...root}}
-      >
+      <Paper component="ul" sx={{ ...root }}>
         <li>
-          <Chip label="Genres" sx={{...chip}} color="primary" />
+          <Chip label="Genres" sx={{ ...chip }} color="primary" />
         </li>
         {movie.genres.map((g) => (
           <li key={g.name}>
-            <Chip label={g.name} sx={{...chip}} />
+            <Chip label={g.name} sx={{ ...chip }} />
           </li>
         ))}
       </Paper>
-      <Paper component="ul" sx={{...root}}>
+      <Paper component="ul" sx={{ ...root }}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
           icon={<MonetizationIcon />}
@@ -60,23 +56,51 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
-      <Paper 
-        component="ul" 
-        sx={{...root}}
-      >
+      <Paper component="ul" sx={{ ...root }}>
         <li>
-          <Chip label="Production Countries" sx={{...chip}} color="primary" />
+          <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
         </li>
         {movie.production_countries.map((pc) => (
           <li key={pc.name}>
-            <Chip label={pc.name} sx={{...chip}} />
+            <Chip label={pc.name} sx={{ ...chip }} />
           </li>
         ))}
       </Paper>
+        {/* Similar Link */}
+        <Link to={`/movies/${movie.id}/similar`} style={{ textDecoration: 'none' }}>
+        <Fab
+          color="secondary"
+          variant="extended"
+          sx={{
+            position: 'fixed',
+            bottom: '1em',
+            right: '23em'
+          }}
+        >
+          <NavigationIcon />
+          Similar
+        </Fab>
+      </Link>
+      {/* Recommended Link */}
+      <Link to={`/movies/${movie.id}/recommended`} style={{ textDecoration: 'none' }}>
+        <Fab
+          color="primary"
+          variant="extended"
+          sx={{
+            position: 'fixed',
+            bottom: '1em',
+            right: '10em'
+          }}
+        >
+          <NavigationIcon />
+          Recommended
+        </Fab>
+      </Link>
+      {/* Review Link */}
       <Fab
         color="secondary"
         variant="extended"
-        onClick={() =>setDrawerOpen(true)}
+        onClick={() => setDrawerOpen(true)}
         sx={{
           position: 'fixed',
           bottom: '1em',
@@ -89,7 +113,8 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
       <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <MovieReviews movie={movie} />
       </Drawer>
-      </>
+    </>
   );
 };
-export default MovieDetails ;
+
+export default MovieDetails;

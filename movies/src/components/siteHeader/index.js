@@ -35,8 +35,6 @@ const SiteHeader = ({ history }) => {
         { label: "Trending", path: "/movies/trending" },
         { label: "Now Playing", path: "/movies/nowPlaying" },
         { label: "Top Rated", path: "/movies/topRated" },
-        { label: "Recommended", path: "/movies/recommended" },
-        { label: "Videos", path: "/movies/videos" },
         { label: "Dashboard", path: "../firebase/dashboard.js" },
       ],
     },

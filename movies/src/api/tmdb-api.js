@@ -160,7 +160,7 @@ export const getMovies = () => {
     })
   };
 
-  export const getVideos = (args) => {
+  export const getSimilar = (args) => {
     const [, idPart] = args.queryKey
     const { id } = idPart;
     return fetch(
