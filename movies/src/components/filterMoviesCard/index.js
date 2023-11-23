@@ -14,8 +14,6 @@ import { getGenres, getMovies} from "../../api/tmdb-api";
 import { Button } from "@mui/material";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
-import MovieDetails from "../movieDetails";
-
 
 const formControl = 
   {
@@ -24,9 +22,16 @@ const formControl =
     backgroundColor: "rgb(255, 255, 255)"
   };
 
+  const sortOptions = [
+    { value: "popularity.desc", label: "Popularity Desc" },
+    { value: "popularity.asc", label: "Popularity Asc" },
+    { value: "release_date.desc", label: "Release Date Desc" },
+    { value: "release_date.asc", label: "Release Date Asc" },
+  ];
+
 export default function FilterMoviesCard(props) {
 
-    const { data, error, isLoading, isError } = useQuery("genres", getGenres);
+    const { data, error, isLoading, isError} = useQuery("genres", getGenres);
 
     if (isLoading) {
       return <Spinner />;
@@ -52,10 +57,8 @@ export default function FilterMoviesCard(props) {
       handleChange(e, "genre", e.target.value);
     };
 
-    const sort = data.genres.sort();
-
     const handleSortChange = (e) => {
-      handleChange(e, "genre", e.target.value);
+      handleChange(e, "sort", e.target.value);
     };
 
   return (
@@ -95,6 +98,21 @@ export default function FilterMoviesCard(props) {
                 </MenuItem>
               );
             })}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ ...formControl }}>
+          <InputLabel id="sort-label">Sort By</InputLabel>
+          <Select
+            labelId="sort-label"
+            id="sort-select"
+            defaultValue=""
+            onChange={handleSortChange}
+          >
+            {sortOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </CardContent>
