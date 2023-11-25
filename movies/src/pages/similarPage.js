@@ -1,10 +1,11 @@
-import React from "react";
+import React, {lazy, Suspense } from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery } from "react-query";
 import { getSimilar } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
-import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import PageTemplate from "../components/templateMovieListPage";
+
+const AddToFavoritesIcon = lazy(() => import('../components/cardIcons/addToFavorites'));
 
 const Similar = (props) => {
   const { id } = useParams();
@@ -28,6 +29,7 @@ const Similar = (props) => {
    localStorage.setItem('favorites', JSON.stringify(favorites))
 
   return (
+    <Suspense fallback={<Spinner />}>
     <PageTemplate
       title="Similar Movies"
       movies={movies}
@@ -35,6 +37,7 @@ const Similar = (props) => {
         return <AddToFavoritesIcon movie={movie} />
       }}
     />
+    </Suspense>
 );
 };
 

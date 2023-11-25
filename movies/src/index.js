@@ -1,26 +1,27 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
-import HomePage from "./pages/homePage";
-import Upcoming from "./pages/upcoming";
-import Trending from "./pages/trending";
-import NowPlaying from "./pages/nowPlaying";
-import TopRated from "./pages/topRated";
-import Recommendations from "./pages/recommended";
-import Similar from "./pages/similarPage";
-import MoviePage from "./pages/movieDetailsPage";
-import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
-import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
-import AddMovieReviewPage from './pages/addMovieReviewPage'
-//Firebase Auth Imports
-import Login from "./components/firebase/login";
-import Register from "./components/firebase/register";
-import Reset from "./components/firebase/reset";
-import Dashboard from "./components/firebase/dashboard";
+
+// Lazy load for page components
+const HomePage = lazy(() => import("./pages/homePage"));
+const Upcoming = lazy(() => import("./pages/upcoming"));
+const Trending = lazy(() => import("./pages/trending"));
+const NowPlaying = lazy(() => import("./pages/nowPlaying"));
+const TopRated = lazy(() => import("./pages/topRated"));
+const Recommendations = lazy(() => import("./pages/recommended"));
+const Similar = lazy(() => import("./pages/similarPage"));
+const MoviePage = lazy(() => import("./pages/movieDetailsPage"));
+const FavoriteMoviesPage = lazy(() => import("./pages/favoriteMoviesPage"));
+const MovieReviewPage = lazy(() => import("./pages/movieReviewPage"));
+const AddMovieReviewPage = lazy(() => import("./pages/addMovieReviewPage"));
+const Login = lazy(() => import("./components/firebase/login"));
+const Register = lazy(() => import("./components/firebase/register"));
+const Reset = lazy(() => import("./components/firebase/reset"));
+const Dashboard = lazy(() => import("./components/firebase/dashboard"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +35,7 @@ const queryClient = new QueryClient({
 
 const App = () => {
   return (
+  <Suspense fallback={<div>Loading...</div>}>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <SiteHeader />
@@ -60,6 +62,7 @@ const App = () => {
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
+  </Suspense>
   );
 };
 

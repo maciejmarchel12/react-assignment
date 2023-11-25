@@ -1,11 +1,13 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import PageTemplate from '../components/templateMovieListPage'
+// eslint-disable-next-line no-unused-vars
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import { getUpcoming } from "../api/tmdb-api";
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
+// eslint-disable-next-line no-unused-vars
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
+const AddToMustWatchIcon = lazy(() => import("../components/cardIcons/addToMustWatch"));
 
 const Upcoming = (props) => {
 
@@ -23,6 +25,7 @@ const Upcoming = (props) => {
 
   const mustWatch = movies.filter(m => m.mustWatch)
   localStorage.setItem('favourites', JSON.stringify(mustWatch))
+  // eslint-disable-next-line no-unused-vars
   const addToMustWatch = (movieId) => true
 
 /*   const favorites = movies.filter(m => m.favorite)
@@ -30,6 +33,7 @@ const Upcoming = (props) => {
   const addToFavorites = (movieId) => true */
 
   return (
+    <Suspense fallback={<Spinner />}>
     <PageTemplate
       title='Discover Movies'
       movies={movies}
@@ -37,6 +41,7 @@ const Upcoming = (props) => {
         return <AddToMustWatchIcon movie={movie} />
       }}
     />
+    </Suspense>
   );
 };
 export default Upcoming;

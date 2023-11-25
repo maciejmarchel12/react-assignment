@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmovies=self.webpackChunkmovies||[]).push([[428],{7428:(e,o,t)=>{t.r(o),t.d(o,{default:()=>d});var r=t(390),a=t(3730),s=t(6649),i=t(2340),n=t(2559);const d=e=>{let{movie:o}=e;const t=(0,r.useContext)(a.m);return(0,n.jsx)(s.Z,{"aria-label":"add to favorites",onClick:e=>{e.preventDefault(),t.addToFavorites?t.addToFavorites(o):console.error("addToFavorites function is not defined in the context")},children:(0,n.jsx)(i.Z,{color:"primary",fontSize:"large"})})}}}]);
+//# sourceMappingURL=428.08d04019.chunk.js.map

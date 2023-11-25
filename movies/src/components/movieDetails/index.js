@@ -34,82 +34,94 @@ const MovieDetails = ({ movie }) => {
         {movie.overview}
       </Typography>
 
-      <Paper component="ul" sx={{ ...root }}>
-        <li>
-          <Chip label="Genres" sx={{ ...chip }} color="primary" />
-        </li>
-        {movie.genres.map((g) => (
-          <li key={g.name}>
-            <Chip label={g.name} sx={{ ...chip }} />
-          </li>
-        ))}
-      </Paper>
-      <Paper component="ul" sx={{ ...root }}>
-        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
-        <Chip
-          icon={<MonetizationIcon />}
-          label={`${movie.revenue.toLocaleString()}`}
-        />
-        <Chip
-          icon={<StarRate />}
-          label={`${movie.vote_average} (${movie.vote_count}`}
-        />
-        <Chip label={`Released: ${movie.release_date}`} />
-      </Paper>
-      <Paper component="ul" sx={{ ...root }}>
-        <li>
-          <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
-        </li>
-        {movie.production_countries.map((pc) => (
-          <li key={pc.name}>
-            <Chip label={pc.name} sx={{ ...chip }} />
-          </li>
-        ))}
-      </Paper>
+      <Paper component="ul" sx={{ ...root }} data-testid="genres">
+  <li>
+    <Chip label="Genres" sx={{ ...chip }} color="primary" />
+  </li>
+  {movie.genres.map((g, index) => (
+    <li key={index}>
+      <Chip label={g.name} sx={{ ...chip }} />
+    </li>
+  ))}
+</Paper>
+
+<Paper component="ul" sx={{ ...root }} data-testid="runtime">
+  <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+</Paper>
+
+<Paper component="ul" sx={{ ...root }} data-testid="revenue">
+  <Chip
+    icon={<MonetizationIcon />}
+    label={`${movie.revenue.toLocaleString()}`}
+  />
+</Paper>
+
+<Paper component="ul" sx={{ ...root }} data-testid="votes">
+  <Chip
+    icon={<StarRate />}
+    label={`${movie.vote_average} (${movie.vote_count})`}
+    data-testid="vote-average"
+  />
+  <Chip label={`Released: ${movie.release_date}`} data-testid="release-date" />
+</Paper>
+
+<Paper component="ul" sx={{ ...root }} data-testid="production-countries">
+      <li>
+        <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
+      </li>
+        {movie.production_countries.map((pc, index) => (
+      <li key={index}>
+        <Chip label={pc.name} sx={{ ...chip }} />
+      </li>
+          ))}
+        </Paper>
         {/* Similar Link */}
         <Link to={`/movies/${movie.id}/similar`} style={{ textDecoration: 'none' }}>
-        <Fab
-          color="secondary"
-          variant="extended"
-          sx={{
-            position: 'fixed',
-            bottom: '1em',
-            right: '23em'
-          }}
-        >
-          <NavigationIcon />
-          Similar
-        </Fab>
-      </Link>
-      {/* Recommended Link */}
-      <Link to={`/movies/${movie.id}/recommended`} style={{ textDecoration: 'none' }}>
-        <Fab
-          color="primary"
-          variant="extended"
-          sx={{
-            position: 'fixed',
-            bottom: '1em',
-            right: '10em'
-          }}
-        >
-          <NavigationIcon />
-          Recommended
-        </Fab>
-      </Link>
-      {/* Review Link */}
-      <Fab
+       <Fab
         color="secondary"
         variant="extended"
-        onClick={() => setDrawerOpen(true)}
         sx={{
           position: 'fixed',
           bottom: '1em',
-          right: '1em'
+          right: '23em'
         }}
-      >
-        <NavigationIcon />
-        Reviews
-      </Fab>
+        data-testid="similar-button" // Added data-testid attribute
+        >
+    <NavigationIcon />
+    Similar
+  </Fab>
+</Link>
+
+<Link to={`/movies/${movie.id}/recommended`} style={{ textDecoration: 'none' }}>
+  <Fab
+    color="primary"
+    variant="extended"
+    sx={{
+      position: 'fixed',
+      bottom: '1em',
+      right: '10em'
+    }}
+    data-testid="recommended-button" // Added data-testid attribute
+  >
+    <NavigationIcon />
+    Recommended
+  </Fab>
+</Link>
+
+<Fab
+  color="secondary"
+  variant="extended"
+  onClick={() => setDrawerOpen(true)}
+  sx={{
+    position: 'fixed',
+    bottom: '1em',
+    right: '1em'
+  }}
+  data-testid="reviews-button" // Added data-testid attribute
+>
+  <NavigationIcon />
+  Reviews
+</Fab>
       <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <MovieReviews movie={movie} />
       </Drawer>

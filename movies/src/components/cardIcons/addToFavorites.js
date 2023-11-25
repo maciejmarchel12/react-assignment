@@ -8,7 +8,11 @@ const AddToFavoritesIcon = ({ movie }) => {
 
   const handleAddToFavorites = (e) => {
     e.preventDefault();
-    context.addToFavorites(movie);
+    if (context.addToFavorites) {
+      context.addToFavorites(movie);
+    } else {
+      console.error("addToFavorites function is not defined in the context");
+    }
   };
 
   return (

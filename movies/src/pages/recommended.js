@@ -1,10 +1,11 @@
-import React from "react";
+import React, {lazy, Suspense } from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery } from "react-query";
 import { getRecommendations } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
-import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import PageTemplate from "../components/templateMovieListPage";
+
+const AddToFavoritesIcon = lazy(() => import('../components/cardIcons/addToFavorites'));
 
 const Recommended = (props) => {
   const { id } = useParams();
@@ -28,6 +29,7 @@ const Recommended = (props) => {
    localStorage.setItem('favorites', JSON.stringify(favorites))
 
   return (
+    <Suspense fallback={<Spinner />}>
     <PageTemplate
       title="Recommended Movies"
       movies={movies}
@@ -35,6 +37,7 @@ const Recommended = (props) => {
         return <AddToFavoritesIcon movie={movie} />
       }}
     />
+    </Suspense>
 );
 };
 

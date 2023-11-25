@@ -1,11 +1,13 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { useParams } from 'react-router-dom';
-import MovieDetails from "../components/movieDetails/";
 import PageTemplate from "../components/templateMoviePage";
+// eslint-disable-next-line no-unused-vars
 import { getMovie, getRecommendations, getSimilar } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 // import useMovie from "../hooks/useMovie";   Redundant
+
+const MovieDetails = lazy(() => import("../components/movieDetails/"));
 
 
 const MoviePage = (props) => {
@@ -24,6 +26,7 @@ const MoviePage = (props) => {
   }
 
   return (
+    <Suspense fallback={<Spinner />}>
     <>
       {movie ? (
         <>
@@ -38,14 +41,17 @@ const MoviePage = (props) => {
         <p>Waiting for movie details</p>
       )}
     </>
+    </Suspense>
   );
 };
 
 const RecommendedMoviesLink = ({ movieId }) => {
+  // eslint-disable-next-line no-unused-vars
   const recommendedLink = `/movies/${movieId}/recommended`;
 }
 
 const SimilarMoviesLink = ({ movieId }) => {
+  // eslint-disable-next-line no-unused-vars
   const similarLink = `/movies/${movieId}/similar`;
 }
 

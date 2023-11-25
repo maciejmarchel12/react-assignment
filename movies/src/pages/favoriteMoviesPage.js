@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, lazy, Suspense } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
-import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
-import WriteReview from "../components/cardIcons/writeReview";
+
+const RemoveFromFavorites = lazy(() => import("../components/cardIcons/removeFromFavorites"));
+const WriteReview = lazy(() => import("../components/cardIcons/writeReview"));
 
 const FavoriteMoviesPage = () => {
   const {favorites: movieIds } = useContext(MoviesContext);
@@ -31,9 +32,11 @@ const FavoriteMoviesPage = () => {
     return q.data
   });
 
+  // eslint-disable-next-line no-unused-vars
   const toDo = () => true;
 
   return (
+    <Suspense fallback={<Spinner />}>
     <PageTemplate
       title="Favorite Movies"
       movies={movies}
@@ -46,6 +49,7 @@ const FavoriteMoviesPage = () => {
         );
       }}
     />
+    </Suspense>
   );
 };
 

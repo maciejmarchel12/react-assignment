@@ -11,12 +11,14 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+// eslint-disable-next-line no-unused-vars
 import { logout } from "../../firebase";
 import "../../css/dashboard.css";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
+  // eslint-disable-next-line no-unused-vars
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 
@@ -26,7 +28,7 @@ const SiteHeader = ({ history }) => {
   const navigate = useNavigate();
 
   const menuOptions = [
-    { label: "Home", path: "/" },
+    { label: "Home", path: "/movies/homePage" },
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcoming" },
     {
