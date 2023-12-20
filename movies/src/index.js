@@ -5,6 +5,8 @@ import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
+import AuthContextProvider from "./contexts/authContext";
+import ProtectedRoutes from "./protectedRoutes";
 
 // Lazy load for page components
 const HomePage = lazy(() => import("./pages/homePage"));
@@ -18,8 +20,8 @@ const MoviePage = lazy(() => import("./pages/movieDetailsPage"));
 const FavoriteMoviesPage = lazy(() => import("./pages/favoriteMoviesPage"));
 const MovieReviewPage = lazy(() => import("./pages/movieReviewPage"));
 const AddMovieReviewPage = lazy(() => import("./pages/addMovieReviewPage"));
-const Login = lazy(() => import("./components/firebase/login"));
-const Register = lazy(() => import("./components/firebase/register"));
+const Login = lazy(() => import("./pages/loginPage"));
+const Register = lazy(() => import("./pages/signUpPage"));
 const Reset = lazy(() => import("./components/firebase/reset"));
 const Dashboard = lazy(() => import("./components/firebase/dashboard"));
 
@@ -40,24 +42,28 @@ const App = () => {
       <BrowserRouter>
         <SiteHeader />
         <MoviesContextProvider>
+          <AuthContextProvider>
         <Routes>
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/movies/:id/recommended" element={ <Recommendations /> } />
+            <Route path="/movies/:id/similar" element={ <Similar /> } />
+            <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
+            <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+          </Route>
         <Route path="/movies/trending" element={<Trending />} />
-        <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
         <Route path="/movies/upcoming" element={ <Upcoming /> } />
         <Route path="/movies/nowPlaying" element={ <NowPlaying /> } />
         <Route path="/movies/topRated" element={ <TopRated /> } />
-        <Route path="/movies/:id/recommended" element={ <Recommendations /> } />
-        <Route path="/movies/:id/similar" element={ <Similar /> } />
-        <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
         <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
         <Route path="/movies/:id" element={<MoviePage />} />
-        <Route path="/movies/homePage" element={<HomePage />} />
-        <Route exact path ="/" element={<Login/>} />
+        <Route path="/" element={<HomePage />} />
+        <Route exact path ="/login" element={<Login/>} />
         <Route exact path ="/register" element={<Register/>} />
         <Route exact path ="/reset" element={<Reset/>} />
         <Route exact path ="/dashboard" element={<Dashboard/>} />
         <Route path="*" element={ <Navigate to="/" /> } />
         </Routes>
+        </AuthContextProvider>
         </MoviesContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
