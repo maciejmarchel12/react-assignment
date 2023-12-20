@@ -1,6 +1,6 @@
 import React, {lazy, Suspense } from "react";
 import PageTemplate from '../components/templateMovieListPage'
-import { getTopRated } from "../api/tmdb-api";
+import { getTopRated } from "../api/movies-api";
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 const AddToFavoritesIcon = lazy(() => import('../components/cardIcons/addToMustWatch'));

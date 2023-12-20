@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import PageTemplate from '../components/templateMovieListPage'
 // eslint-disable-next-line no-unused-vars
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
-import { getUpcoming } from "../api/tmdb-api";
+import { getUpcoming } from "../api/movies-api";
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 // eslint-disable-next-line no-unused-vars

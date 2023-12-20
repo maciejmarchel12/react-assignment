@@ -1,7 +1,7 @@
 import React, {lazy, Suspense } from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery } from "react-query";
-import { getSimilar } from "../api/tmdb-api";
+import { getSimilar } from "../api/movies-api";
 import Spinner from '../components/spinner'
 import PageTemplate from "../components/templateMovieListPage";
 

@@ -7,7 +7,12 @@ import Grid from "@mui/material/Grid";
 function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
-  const [sortOption, setSortOption] = useState(""); // NEW 
+  const [sortOption, setSortOption] = useState(""); 
+
+  if (!movies) {
+    // If movies is undefined, return a loading state or something appropriate
+    return <p>Loading...</p>;
+  }
 
   const genreId = Number(genreFilter);
 
@@ -26,7 +31,6 @@ function MovieListPageTemplate({ movies, title, action }) {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
 
-  // Sorting logic
   if (sortOption === "popularity.desc") {
     displayedMovies = displayedMovies.sort(compareByPopularity).reverse();
   } else if (sortOption === "popularity.asc") {
@@ -44,7 +48,7 @@ function MovieListPageTemplate({ movies, title, action }) {
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
     else if (type === "genre") setGenreFilter(value);
-    else if (type === "sort") setSortOption(value); // NEW
+    else if (type === "sort") setSortOption(value);
   };
 
   return (
@@ -65,4 +69,5 @@ function MovieListPageTemplate({ movies, title, action }) {
     </Grid>
   );
 }
+
 export default MovieListPageTemplate;

@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { useParams } from 'react-router-dom';
 import PageTemplate from "../components/templateMoviePage";
 // eslint-disable-next-line no-unused-vars
-import { getMovie, getRecommendations, getSimilar } from '../api/tmdb-api'
+import { getMovie, getRecommendations, getSimilar } from '../api/movies-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 // import useMovie from "../hooks/useMovie";   Redundant
