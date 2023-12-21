@@ -84,10 +84,13 @@ const ReviewForm = ({ movie }) => {
 
   const onSubmit = async (data) => {
     data.rating = rating;
-    data.movieId = movie.id;
-
+  
     try {
-      await addMovieReview(movie.id, data.author, data.review, rating);
+      // Convert movie.id to a string
+      const movieId = String(movie.id);
+  
+      // Use movieId when calling addMovieReview
+      await addMovieReview(movieId, data.author, data.review, rating);
       setOpen(true);
     } catch (error) {
       console.error("Error submitting review:", error);

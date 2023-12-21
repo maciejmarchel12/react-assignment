@@ -1,7 +1,7 @@
 
 export const getMovies = async () => {
   const response = await fetch(
-    'http://localhost:8080/api/movies', {
+    'http://localhost:8080/api/movies/movies', {
     headers: {
       'Authorization': window.localStorage.getItem('token')
     }
@@ -97,9 +97,14 @@ export const getMovieImages = async ({ queryKey }) => {
 
 
 
-export const getMovieReviews = async (movieId) => {
+export const getMovieReviews = async (args) => {
+  const [, idPart] = args.queryKey || {};
+  if (!idPart) {
+    throw new Error('Invalid queryKey: missing id');
+  }
+  const { id } = idPart;
   const response = await fetch(
-    `http://localhost:8080/api/movies/tmdb/movie/${movieId}/review`, {
+    `http://localhost:8080/api/movies/tmdb/movie/${id}/review`, {
     headers: {
       'Authorization': window.localStorage.getItem('token')
     }
@@ -130,9 +135,15 @@ export const getTrending = async () => {
   return response.json();
 };
 
-export const getSimilar = async (movieId) => {
+export const getSimilar = async (args) => {
+  const [, idPart] = args.queryKey || {};
+  if (!idPart) {
+    throw new Error('Invalid queryKey: missing id');
+  }
+  const { id } = idPart;
+
   const response = await fetch(
-    `http://localhost:8080/api/movies/tmdb/movie/${movieId}/similar`, {
+    `http://localhost:8080/api/movies/tmdb/movie/${id}/similar`, {
     headers: {
       'Authorization': window.localStorage.getItem('token')
     }
@@ -141,9 +152,14 @@ export const getSimilar = async (movieId) => {
   return response.json();
 };
 
-export const getRecommendations = async (movieId) => {
+export const getRecommendations = async (args) => {
+  const [, idPart] = args.queryKey || {};
+  if (!idPart) {
+    throw new Error('Invalid queryKey: missing id');
+  }
+  const { id } = idPart;
   const response = await fetch(
-    `http://localhost:8080/api/movies/tmdb/movie/${movieId}/recommendations`, {
+    `http://localhost:8080/api/movies/tmdb/movie/${id}/recommendations`, {
     headers: {
       'Authorization': window.localStorage.getItem('token')
     }
@@ -185,10 +201,10 @@ export const signup = async (username, password) => {
     return response.json();
 };
 
-export const addMovieReview = async (movieId, author, content, rating) => {
+export const addMovieReview = async (id, author, content, rating) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/movies/tmdb/movie/${movieId}/reviews`,
+      `http://localhost:8080/api/movies/tmdb/movie/${id}/reviews`,
       {
         method: 'POST',
         headers: {
