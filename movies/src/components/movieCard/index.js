@@ -14,6 +14,7 @@ import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import { MoviesContext } from "../../contexts/moviesContext";
+import { getMovie } from "../../api/movies-api";
 
 export default function MovieCard({ movie, action }) {
     const { favorites, addToFavorites, mustWatch, addToMustWatch } = useContext(MoviesContext);

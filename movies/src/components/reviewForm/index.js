@@ -5,10 +5,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useForm, Controller } from "react-hook-form";
-import { MoviesContext } from "../../contexts/moviesContext";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
+import { addMovieReview } from "../../api/movies-api";
 
 const ratings = [
   {
@@ -62,41 +62,36 @@ const styles = {
 
 const ReviewForm = ({ movie }) => {
   const [rating, setRating] = useState(3);
-
-  const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const context = useContext(MoviesContext);
-
-  const handleSnackClose = (event) => {
-    setOpen(false);
-    navigate("/movies/favorites");
-  };
-  
-  const defaultValues = {
-    author: "",
-    review: "",
-    agree: false,
-    rating: "3",
-  };
-  
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm(defaultValues);
+  const { control, handleSubmit, reset, formState: { errors } } = useForm({
+    defaultValues: {
+      author: "",
+      review: "",
+      rating: "3",
+    },
+  });
 
   const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
 
-  const onSubmit = (review) => {
-    review.movieId = movie.id;
-    review.rating = rating;
-    // console.log(review);
-    context.addReview(movie, review);
-    setOpen(true); // NEW
+  const handleSnackClose = () => {
+    setOpen(false);
+    navigate("/movies/favorites");
+  };
+
+  const onSubmit = async (data) => {
+    data.rating = rating;
+    data.movieId = movie.id;
+
+    try {
+      await addMovieReview(movie.id, data.author, data.review, rating);
+      setOpen(true);
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
   };
 
   return (
@@ -178,7 +173,7 @@ const ReviewForm = ({ movie }) => {
           </Typography>
         )}
 
-        <Controller
+<Controller
           control={control}
           name="rating"
           render={({ field: { onChange, value } }) => (
@@ -217,7 +212,7 @@ const ReviewForm = ({ movie }) => {
             onClick={() => {
               reset({
                 author: "",
-                content: "",
+                review: "",
               });
             }}
           >

@@ -1,4 +1,5 @@
 import movieModel from './movieModel';
+import reviewModel from './reviewModel';
 import asyncHandler from 'express-async-handler';
 import express from 'express';
 import {
@@ -23,7 +24,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // Get movie details
-router.get('/', asyncHandler(async (req, res) => {
+router.get('/movies/details', asyncHandler(async (req, res) => {
     let { page = 1, limit = 10 } = req.query; // destructure page and limit and set default values
     [page, limit] = [+page, +limit]; //trick to convert to numeric (req.query will contain string values)
 
@@ -103,5 +104,49 @@ router.get('/tmdb/movie/:id/recommendations', asyncHandler(async (req, res) => {
     const recommendations = await getRecommendations(id);
     res.status(200).json(recommendations);
 }));
+
+// New route for adding movie reviews
+router.post('/tmdb/movie/:id/reviews', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { author, content, rating } = req.body;
+  
+    try {
+      const movie = await movieModel.findOne({ id: id });
+  
+      if (!movie) {
+        res.status(404).json({ message: 'Movie not found' });
+        return;
+      }
+  
+      // Create a new review object
+      const newReview = {
+        author: author,
+        content: content,
+        rating: rating,
+      };
+  
+      // Add the review to the movie's reviews array
+      movie.reviews.push(newReview);
+  
+      // Save the updated movie object
+      await movie.save();
+
+      console.log('Review saved successfully:', newReview); // Add this line for logging
+  
+      res.status(201).json(newReview);
+    } catch (error) {
+      console.error('Error saving review:', error); // Add this line for logging
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }));
+  
+  // Get reviews for a movie
+  router.get('/tmdb/movie/:id/reviews', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+  
+    const reviews = await ReviewModel.findByMovieId(id);
+  
+    res.status(200).json(reviews);
+  }));
 
 export default router;

@@ -45,11 +45,11 @@ const App = () => {
           <AuthContextProvider>
         <Routes>
           <Route element={<ProtectedRoutes />}>
-            <Route path="/movies/:id/recommended" element={ <Recommendations /> } />
-            <Route path="/movies/:id/similar" element={ <Similar /> } />
-            <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
           </Route>
+        <Route path="/movies/:id/recommended" element={ <Recommendations /> } />
+        <Route path="/movies/:id/similar" element={ <Similar /> } />
+        <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
         <Route path="/movies/trending" element={<Trending />} />
         <Route path="/movies/upcoming" element={ <Upcoming /> } />
         <Route path="/movies/nowPlaying" element={ <NowPlaying /> } />
