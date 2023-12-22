@@ -1,5 +1,5 @@
 # Assignment 1 - ReactJS app. 
-[Go to Assignment 2 - Web API. Section](# Assignment 2 - Web API.)
+[Assignment 2 - Web API.](#Assignment-2-Web-API.)
 
 Name: Maciej Marchel
 
@@ -70,7 +70,7 @@ For the most part the tutorial on integrating the Firebase Authentication and Da
 + components/register.js
 + components/dashboard.js
 
-# Assignment 2 - Web API.
+#<a name= "Assignment-2-Web-API."></a> Assignment 2 - Web API.
 
 Name: Maciej Marchel
 
