@@ -1,4 +1,5 @@
-# Assignment 1 - ReactJS app.
+# Assignment 1 - ReactJS app. 
+[Go to Assignment 2 - Web API. Section](# Assignment 2 - Web API.)
 
 Name: Maciej Marchel
 
@@ -68,3 +69,92 @@ For the most part the tutorial on integrating the Firebase Authentication and Da
 + components/reset.js
 + components/register.js
 + components/dashboard.js
+
+# Assignment 2 - Web API.
+
+Name: Maciej Marchel
+
+## Features.
+
+A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** (or modifications to existing features)
+ 
+ + Posting to Review Collection
+ + Refactoring code to work with backend App 
+ + Material UI styling for Login and Sign Up page
+
+## Setup requirements.
+
+Additional requirements are to use API keys which will be provided on slack for the backend and frontend app.
+
+## API Configuration
+
+Describe any configuration that needs to take place before running the API. For example, creating an `.env` file and what variables to put in it. Give an example of how this might be done.
+
+REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
+
+______________________
+NODEENV=development
+PORT=8080
+HOST=
+mongoDB=YourMongoURL
+seedDb=true
+secret=YourJWTSecret
+______________________
+
+As stated in the setup requirements header, .env contents to work with API's
+
+## API Design
+Give an overview of your web API design, perhaps similar to the following: 
+
+- /api/movies | GET | Gets a list of movies 
+- /api/movies/tmdb/movie/{movieid} | GET | Gets a single movie 
+- /api/movies/tmdb/movie/{movieid}/reviews | GET | Get all reviews for movie 
+- /api/movies/tmdb/movie/{movieid}/reviews | POST | Create a new review for Movie
+- /api/movies/tmdb/movie/now_playing | GET | Gets a list of now playing movies
+- /api/movies/tmdb/movie/upcoming | GET | Gets all upcoming movies
+- /api/movies/tmdb/movie/genre | GET | Gets all genres
+- /api/movies/tmdb/movie/popular | GET | Gets all trending movies currently
+- /api/movies/tmdb/movie/top_rated | GET | Gets all top rated movies currently
+- /api/movies/tmdb/movie/{movieid}/images | GET | Gets all images for movies based on ID
+- /api/movies/tmdb/movie/{movieid}/similar | GET | Gets all similar movies based on ID
+- /api/movies/tmdb/movie/{movieid}/recommendations | GET | Gets all recommended movies based on ID
+- /api/users | POST | Create a new user login
+- /api/users?action=register | POST | Register a new user from sign up
+
+If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
+
+## Security and Authentication
+
+Give details of authentication/security implemented on the API (e.g. passport/sessions). Indicate which routes are protected.
+
+User when logged in is authenticated based on token.
+
+Current routes that are protected are:
+
+```
+    <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+    <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
+    <Route path="/movies/:id/recommended" element={ <Recommendations /> } />
+    <Route path="/movies/:id/similar" element={ <Similar /> } />
+```
+
+## Integrating with React App
+
+Describe how you integrated your React app with the API. List the views that use your Web API instead of the TMDB API. Describe any other updates to the React app from Assignment One.
+
+Any changes from Assignment one are that firebase was depreciated as its no longer needed and used when my own user login and sign up is working from the backend app.
+
+I integrated my React app with the API by having it route from:
+
+FRONT <-----> Backend <------> TMDB API
+                ↑
+                |
+                |
+                |
+                |
+                ↓
+                Mongo DB 
+
+homePage, upcoming, trending, movie details, genres, reviews, top rated, now playing, similar, recommended, favourites, addMovieReview login and sign up pages use my WEB API instead of TMDB API.
+
+## Independent learning (if relevant)
